@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Vector;
 
 class Program
 {
@@ -23,8 +24,66 @@ class Program
 			else{
 				System.out.println("Bom Jogo!");
 				String matrix[][] = OpenFileObj.convertToMatrix();	
+
+				//Instanciando classes
+				Queue queue = new Queue(matrix);
+
+				int startPosition[] = queue.findForStart();
+
+				System.out.println("Sua posição atual é: (" + startPosition[0] + "," + startPosition[1] + ")");
+				queue.printGame();
+
+				Vector<String> freeSquares = new Vector<String>();
+
+				while(!queue.winVerify(startPosition[0], startPosition[1])){
+					freeSquares = queue.returnStringPossibilities(startPosition[0], startPosition[1], true);
+
+					
+					int oldPos1 = startPosition[0];
+					int oldPos2 = startPosition[1];
+					System.out.println();
+					printOptions(freeSquares);
+
+					System.out.println();
+
+					String charIn = in.readLine();
+					startPosition = queue.toWalk(startPosition[0], startPosition[1], charIn);
+					if(startPosition[0] == -1){
+						startPosition[0] = oldPos1;
+						startPosition[1] = oldPos2;
+					}
+				
+					queue.printGame();
+					
+					
+				}
+
+				queue.endGame();
+				
+				
 			}
 			
+		}
+			
+	}
+
+	private static void printOptions(Vector<String> x){
+		if(x != null){
+			System.out.println("Suas opções são: ");
+
+			for(int i = 0; i < x.size(); i++){
+				if(x.size() > 1){
+					if(i < x.size() - 1){
+						System.out.print(x.get(i) + ", ");
+					}else{
+						System.out.print("e " + x.get(i));
+					}
+				}
+				else{
+					System.out.println("Opa! Você pode ir apenas para: " + x.get(i));
+				}
+				
+			}
 		}
 			
 	}

@@ -20,39 +20,22 @@ class Stack <X> implements Cloneable{
 		}
 	}
 
-	public int[] possibilities(int x, int y) throws Exception{
-		int array[] = new int [8];
-		int i = 0;
-		try{ 
-			if(matrix[x + 1][y] == " " || matrix[x + 1][y] == "S") {
-				array[i] = x;
-				i++;
-				array[i] = y;
-			}
+	
 
-			if(matrix[x -1][y] == " " || matrix[x - 1][y] == "S") {
-				array[i] = x;
-				i++;
-				array[i] = y;
-			}
-
-			if(matrix[x][y + 1] == " " || matrix[x][y + 1] == "S") {
-				array[i] = x;
-				i++;
-				array[i] = y;
-			}
-
-			if(matrix[x][y - 1] == " " || matrix[x][y - 1] == "S") {
-				array[i] = x;
-				i++;
-				array[i] = y;
-			}
-
-			return array;
-		}catch(Exception err){
-			throw new Exception(err);
-		}
-	}
+	// função adicional, cujo o objetivo é achar todos os lugares possiveis, para que no fim, retorne ao usuario quantos caminhos disponiveis restaram para ele passar
+	// public int[] findForAllPossibilities(String m[][]){
+	// 	// Procurando por possibilidades, procurando pelos caminhos disponiveis.
+	// 	int positions[] = new int[8];
+	// 	try{
+	// 		for(int i = 0; i < lineMat; i++){
+	// 			for(int j = 0; j < lineMat; j++){
+	// 				if(this.matrix[i][j] == " "){
+						
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	
 }

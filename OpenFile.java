@@ -8,9 +8,13 @@ public class OpenFile {
        
         
     }
+
+
     public OpenFile(String name){
         this.fileName = name;
     }
+
+
     public Vector fileReturn(){
         BufferedReader in = null;
         String file = "";
@@ -28,6 +32,7 @@ public class OpenFile {
         } catch(IOException e) {}
         return filePerLine;
     }
+
 
     public Boolean fileVerify(){
         Vector fileObj = fileReturn();
@@ -49,6 +54,7 @@ public class OpenFile {
         return true;
     }
 
+    
     public String[][] convertToMatrix(){
         Vector fileObj = fileReturn();
         int x = Integer.parseInt(fileObj.elementAt(0).toString());
