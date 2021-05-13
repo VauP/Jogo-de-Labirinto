@@ -39,8 +39,8 @@ class Program
 					freeSquares = queue.returnStringPossibilities(startPosition[0], startPosition[1], true);
 
 					
-					int oldPos1 = startPosition[0];
-					int oldPos2 = startPosition[1];
+					int oldPos1 = startPosition[0]; //EIXO X [AQUI][]
+					int oldPos2 = startPosition[1]; //EIXO Y [][AQUI]
 					System.out.println();
 					printOptions(freeSquares);
 
@@ -55,7 +55,7 @@ class Program
 				
 					queue.printGame();
 					
-					
+			
 				}
 
 				queue.endGame();

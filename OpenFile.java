@@ -4,11 +4,11 @@ import java.util.Vector;
 public class OpenFile {
     Vector<String> filePerLine = new Vector<>();
     String fileName;
+    String nome;
     public static void main(String[] args){
        
         
     }
-
 
     public OpenFile(String name){
         this.fileName = name;
@@ -20,13 +20,23 @@ public class OpenFile {
         String file = "";
         try {
             in = new BufferedReader (new FileReader("./TextsFiles/" + fileName + ".txt"));
+            
             String str;
             int a = 0;
             while((str = in.readLine()) != null){
+                if(a == 0){
+                    LineAndCol GetLinAndCol = new LineAndCol(str, a);
+                    a++;
+                }else if(a == 1){
+                    LineAndCol GetLinAndCol = new LineAndCol(str, a);
+                    a++;
+                }
                 filePerLine.add(str);
                 // System.out.println(str); 
                 
             }
+
+
             file = in.readLine();
             in.close();
         } catch(IOException e) {}
@@ -37,17 +47,28 @@ public class OpenFile {
     public Boolean fileVerify(){
         Vector fileObj = fileReturn();
 
-        Boolean HasAnyEspaço = false;
-        Boolean HasAnyS = false;
-        Boolean HasAnyE = false;
-        Boolean HasAnyCerquilha = false;
+        int HasAnyEspaço = 0;
+        int HasAnyS = 0;
+        int HasAnyE = 0;
+        int HasAnyCerquilha = 0;
+        Boolean HasEqualLine = true;
+        Boolean HasEqualColumn = true;
+        LineAndCol GetLinAndCol = new LineAndCol();
+        int line = GetLinAndCol.GetLine();
+        int column = GetLinAndCol.GetCol();
+
+        System.out.println(fileObj.size());
+
         for(int i = 0; i < fileObj.size(); i++){
-            if(fileObj.elementAt(i).toString().contains(" ")) HasAnyEspaço = true;
-            if(fileObj.elementAt(i).toString().contains("S")) HasAnyS = true;
-            if(fileObj.elementAt(i).toString().contains("E")) HasAnyE = true;
-            if(fileObj.elementAt(i).toString().contains("#")) HasAnyCerquilha = true;
+
+            if(((String) fileObj.elementAt(i)).length() > line) HasEqualLine = false;
+            if(((String) fileObj.elementAt(i)).length() > column) HasEqualColumn = false;
+            if(fileObj.elementAt(i).toString().contains(" ")) HasAnyEspaço++;
+            if(fileObj.elementAt(i).toString().contains("S")) HasAnyS++;
+            if(fileObj.elementAt(i).toString().contains("E")) HasAnyE++;
+            if(fileObj.elementAt(i).toString().contains("#")) HasAnyCerquilha++;
         }
-        if(!HasAnyCerquilha || !HasAnyE || !HasAnyS || !HasAnyEspaço){
+        if(!HasEqualLine || !HasEqualColumn || HasAnyCerquilha == 0 || HasAnyE == 0 || HasAnyE > 1 || HasAnyS == 0 || HasAnyS > 1 || HasAnyEspaço == 0){
             return false;
         }
        

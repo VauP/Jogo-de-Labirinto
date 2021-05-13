@@ -12,6 +12,7 @@ class Queue <X> implements Cloneable{
 			if(m.length > 0){
 				lineMat = m.length;
 				colMat = m[0].length;
+				//instancia a pilha
 			}
 			System.out.println("" + lineMat + ","+ colMat);
 			for(int i = 0; i < lineMat; i++){
@@ -59,21 +60,24 @@ class Queue <X> implements Cloneable{
 		int possibilities[] = {0, 0, 0 ,0};
 
 		/* Array indicando as possibilidades em int (coordenadas).
-		0* e 1* posição -> up
-		2* e 3* posição -> down
-		4* e 5* posição -> ahead
-		6* e 7* posição -> back
+		0*  posição -> up
+		1*  posição -> down
+		2*  posição -> ahead -> direita
+		3*  posição -> back -> esquerda
 		*/
 		int array[] = {-1,-1,-1,-1,-1,-1,-1,-1};
 
 		try{ 
 			if(x > 0){
-				if(matrix[x -1][y].compareTo(" ") == 0 || matrix[x - 1][y].compareTo("S") == 0) {
+				if(matrix[x -1][y].compareTo(" ") == 0 || matrix[x - 1][y].compareTo("S") == 0 || matrix[x -1][y].compareTo("*") == 0) {
 					array[i] = x;
 					i++;
 					array[i] = y;
 					possibilities[0] = 1;
 					anterior = true;
+					if(matrix[x -1][y].compareTo("*") == 0){
+						
+					}
 				}
 			}
 			
