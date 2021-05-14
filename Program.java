@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Vector;
 
 class Program
@@ -55,10 +54,11 @@ class Program
 				
 					queue.printGame();
 					
-			
 				}
 
+        		Stack coordenadas = queue.getStack();
 				queue.endGame();
+        		coordenadas.printAllMoves();
 				
 				
 			}

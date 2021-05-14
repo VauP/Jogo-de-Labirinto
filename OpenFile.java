@@ -45,32 +45,32 @@ public class OpenFile {
 
 
     public Boolean fileVerify(){
-        Vector fileObj = fileReturn();
+        // Vector fileObj = fileReturn();
 
-        int HasAnyEspaço = 0;
-        int HasAnyS = 0;
-        int HasAnyE = 0;
-        int HasAnyCerquilha = 0;
-        Boolean HasEqualLine = true;
-        Boolean HasEqualColumn = true;
-        LineAndCol GetLinAndCol = new LineAndCol();
-        int line = GetLinAndCol.GetLine();
-        int column = GetLinAndCol.GetCol();
+        // int HasAnyEspaço = 0;
+        // int HasAnyS = 0;
+        // int HasAnyE = 0;
+        // int HasAnyCerquilha = 0;
+        // Boolean HasEqualLine = true;
+        // Boolean HasEqualColumn = true;
+        // LineAndCol GetLinAndCol = new LineAndCol();
+        // int line = GetLinAndCol.GetLine();
+        // int column = GetLinAndCol.GetCol();
 
-        System.out.println(fileObj.size());
+        // System.out.println(fileObj.size());
 
-        for(int i = 0; i < fileObj.size(); i++){
+        // for(int i = 0; i < fileObj.size(); i++){
 
-            if(((String) fileObj.elementAt(i)).length() > line) HasEqualLine = false;
-            if(((String) fileObj.elementAt(i)).length() > column) HasEqualColumn = false;
-            if(fileObj.elementAt(i).toString().contains(" ")) HasAnyEspaço++;
-            if(fileObj.elementAt(i).toString().contains("S")) HasAnyS++;
-            if(fileObj.elementAt(i).toString().contains("E")) HasAnyE++;
-            if(fileObj.elementAt(i).toString().contains("#")) HasAnyCerquilha++;
-        }
-        if(!HasEqualLine || !HasEqualColumn || HasAnyCerquilha == 0 || HasAnyE == 0 || HasAnyE > 1 || HasAnyS == 0 || HasAnyS > 1 || HasAnyEspaço == 0){
-            return false;
-        }
+        //     if(((String) fileObj.elementAt(i)).length() > line) HasEqualLine = false;
+        //     if(((String) fileObj.elementAt(i)).length() > column) HasEqualColumn = false;
+        //     if(fileObj.elementAt(i).toString().contains(" ")) HasAnyEspaço++;
+        //     if(fileObj.elementAt(i).toString().contains("S")) HasAnyS++;
+        //     if(fileObj.elementAt(i).toString().contains("E")) HasAnyE++;
+        //     if(fileObj.elementAt(i).toString().contains("#")) HasAnyCerquilha++;
+        // }
+        // if(!HasEqualLine || !HasEqualColumn || HasAnyCerquilha == 0 || HasAnyE == 0 || HasAnyE > 1 || HasAnyS == 0 || HasAnyS > 1 || HasAnyEspaço == 0){
+        //     return false;
+        // }
        
         return true;
     }

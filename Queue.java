@@ -6,6 +6,8 @@ class Queue <X> implements Cloneable{
 	String[][] matrix = new String[99][99];
 	int lineMat, colMat;
 	Boolean ahead, back, up, down;
+	Stack coordenadas;
+	static Positions posicaoAtual;
 
 	public Queue (String[][] m) throws Exception{
 		try{
@@ -13,13 +15,13 @@ class Queue <X> implements Cloneable{
 				lineMat = m.length;
 				colMat = m[0].length;
 				//instancia a pilha
+				coordenadas = new Stack((lineMat * colMat));
 			}
 			System.out.println("" + lineMat + ","+ colMat);
 			for(int i = 0; i < lineMat; i++){
 				for(int j = 0; j  < colMat; j++){
 					this.matrix[i][j] = m[i][j];
 				}
-		
 			}
 		}catch(Exception err){
 			throw new Exception(err);
@@ -41,7 +43,6 @@ class Queue <X> implements Cloneable{
 						posXandY[1] = j;
 					} 
 				}
-				// System.out.println();
 			}
 			return posXandY;
 
@@ -82,7 +83,7 @@ class Queue <X> implements Cloneable{
 			}
 			
 			if(x < lineMat){
-				if(matrix[x + 1][y].compareTo(" ") == 0 || matrix[x + 1][y].compareTo("S") == 0) {
+				if(matrix[x + 1][y].compareTo(" ") == 0 || matrix[x + 1][y].compareTo("S") == 0 || matrix[x + 1][y].compareTo("*") == 0) {
 					if(anterior) i++;
 					array[i] = x;
 					i++;
@@ -92,7 +93,7 @@ class Queue <X> implements Cloneable{
 			}
 
 			if(y < colMat - 1){
-				if(matrix[x][y + 1].compareTo(" ") == 0 || matrix[x][y + 1].compareTo("S") == 0) {
+				if(matrix[x][y + 1].compareTo(" ") == 0 || matrix[x][y + 1].compareTo("S") == 0 || matrix[x][y + 1].compareTo("*") == 0) {
 					if(anterior) i++;
 					array[i] = x;
 					i++;
@@ -102,7 +103,7 @@ class Queue <X> implements Cloneable{
 			}
 			
 			if(y > 0){
-				if(matrix[x][y - 1].compareTo(" ") == 0 || matrix[x][y - 1].compareTo("S") == 0) {
+				if(matrix[x][y - 1].compareTo(" ") == 0 || matrix[x][y - 1].compareTo("S") == 0 || matrix[x][y - 1].compareTo("*") == 0) {
 					if(anterior) i++;
 					array[i] = x;
 					i++;
@@ -132,8 +133,8 @@ class Queue <X> implements Cloneable{
 
 		if(stringPos[0] != 0) possibilities.add("Acima (pressione [A])");
 		if(stringPos[1] != 0) possibilities.add("Abaixo (pressione [B])");
-		if(stringPos[2] != 0) possibilities.add("Frente (pressione [F])");
-		if(stringPos[3] != 0) possibilities.add("Voltar (pressione [V])");
+		if(stringPos[2] != 0) possibilities.add("Direita (pressione [F])");
+		if(stringPos[3] != 0) possibilities.add("Esquerda (pressione [V])");
 		
 		
 		return possibilities;
@@ -149,15 +150,18 @@ class Queue <X> implements Cloneable{
 		}
 	}
 
-	public int[] toWalk(int x, int y, String z){
+	public int[] toWalk(int x, int y, String z) throws Exception{
 
 		int ret[] = {-1,-1};
 
 		if(z.toUpperCase().compareTo("A") == 0){
 			if(x != 0){
-				if(matrix[x -1][y].compareTo(" ") == 0 || matrix[x - 1][y].compareTo("S") == 0) {
+				if(matrix[x -1][y].compareTo(" ") == 0 || matrix[x - 1][y].compareTo("S") == 0 || matrix[x -1][y].compareTo("*") == 0) {
 					if(matrix[x - 1][y].compareTo(" ") == 0) matrix[x -1][y] = "*";
-					
+					else if(matrix[x - 1][y].compareTo("*") == 0) matrix[x][y] = " ";
+
+					posicaoAtual = new Positions(x, y);
+					coordenadas.guardeUmItem(posicaoAtual); 
 					ret[0] = x - 1;
 					ret[1] = y;
 				}else{
@@ -170,8 +174,11 @@ class Queue <X> implements Cloneable{
 		
 		if(z.toUpperCase().compareTo("B") == 0){
 			if(x < lineMat){
-				if(matrix[x + 1][y].compareTo(" ") == 0 || matrix[x + 1][y].compareTo("S") == 0) {
+				if(matrix[x + 1][y].compareTo(" ") == 0 || matrix[x + 1][y].compareTo("S") == 0 || matrix[x + 1][y].compareTo("*") == 0) {
 					if(matrix[x + 1][y].compareTo(" ") == 0) matrix[x + 1][y] = "*";
+					else if(matrix[x + 1][y].compareTo("*") == 0) matrix[x][y] = " ";
+					posicaoAtual = new Positions(x, y);
+					coordenadas.guardeUmItem(posicaoAtual); 
 					ret[0] = x + 1;
 					ret[1] = y;
 				}else{
@@ -185,8 +192,11 @@ class Queue <X> implements Cloneable{
 
 		if(z.toUpperCase().compareTo("F") == 0){
 			if(y < colMat){
-				if(matrix[x][y + 1].compareTo(" ") == 0 || matrix[x][y + 1].compareTo("S") == 0) {
+				if(matrix[x][y + 1].compareTo(" ") == 0 || matrix[x][y + 1].compareTo("S") == 0 || matrix[x][y + 1].compareTo("*") == 0) {
 					if(matrix[x][y + 1].compareTo(" ") == 0) matrix[x][y + 1] = "*";
+					else if(matrix[x][y + 1].compareTo("*") == 0) matrix[x][y] = " ";
+					posicaoAtual = new Positions(x, y);
+					coordenadas.guardeUmItem(posicaoAtual);
 					ret[0] = x;
 					ret[1] = y + 1;
 				}else{
@@ -200,8 +210,14 @@ class Queue <X> implements Cloneable{
 		
 		if(z.toUpperCase().compareTo("V") == 0){
 			if(y != 0){
-				if(matrix[x][y - 1].compareTo(" ") == 0 || matrix[x][y - 1].compareTo("S") == 0) {
+				if(matrix[x][y - 1].compareTo(" ") == 0 || matrix[x][y - 1].compareTo("S") == 0 || matrix[x][y - 1].compareTo("*") == 0) {
 					if(matrix[x][y - 1].compareTo(" ") == 0) matrix[x][y - 1] = "*";
+					else if(matrix[x][y - 1].compareTo("*") == 0) matrix[x][y] = " ";
+
+					posicaoAtual = new Positions(x, y);
+					coordenadas.removaUmItem(true);;    //<-- TALVEZ TENHA QUE MUDAR CASO NOSSOS CONCEITOS DE LIFO ESTAJAM ERRADOS
+
+
 					ret[0] = x;
 					ret[1] = y - 1;
 				}else{
@@ -222,6 +238,10 @@ class Queue <X> implements Cloneable{
 	public void endGame(){
 		//ainda resta mostrar o numero de movimentos realizados.
 		System.out.println("Parabéns, você venceu!");
+	}
+
+	public Stack getStack(){
+    	return this.coordenadas;
 	}
 
 }

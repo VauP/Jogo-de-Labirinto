@@ -2,9 +2,11 @@ import java.io.*;
 
 
 class Stack <Coordenadas> implements Cloneable{
-	private Positions[] posicao; //private X[] elemento;
+	private Positions[] posicao;
+    private Positions[] finalPos; //private X[] elemento;
     private int      tamanhoInicial;
     private int      ultimo=-1; //vazio
+    
 
     public Stack (int tamanho) throws Exception
     {
@@ -39,13 +41,16 @@ class Stack <Coordenadas> implements Cloneable{
         return ret;
     }
 
-    public void removaUmItem () throws Exception // LIFO ultimo a entrar primeiro a sair
-    {
-        if (this.ultimo==-1) // vazia
-            throw new Exception ("Nada a remover");
 
-        this.posicao[this.ultimo] = null;
-        this.ultimo--;
+    public void removaUmItem (Boolean check) throws Exception //LIFO ultimo a entrar primeiro a sair
+    {
+        if (this.ultimo==-1) {}
+        else{// vazia
+            // throw new Exception ("Nada a remover");
+
+            if(check) this.posicao[this.ultimo] = null;
+            this.ultimo--;
+        }
     }
 
     
@@ -92,5 +97,24 @@ class Stack <Coordenadas> implements Cloneable{
 
         return false;
     }
+
+    public void printAllMoves() throws Exception{
+        System.out.println("No total foram feitos " + (this.ultimo+1) + " movimentos");
+        finalPos = new Positions[this.ultimo];
+        int test = this.ultimo;
+        
+        for(int f = 0; !isVazia(); f++)
+        {
+            System.out.println("Movimento " + (f + 1) + ": "+ posicao[f].toString() + " ");
+           
+            removaUmItem(false);
+        }
+       
+        /* if (this.ultimo!=-1)
+            ret += ", sendo o ultimo "+this.posicao[this.ultimo]; */
+            
+    }
+
+
 }
 

@@ -1,37 +1,90 @@
+import java.io.*;
+import java.util.Vector;
 
 class Program
 {
 
 	public static void main (String[] args) throws Exception{
-		
-		 try
-        {
-            Stack p = new Stack(6);
-            Positions posicao1 = new Positions(1, 5);
-						Positions posicao2 = new Positions(2, 5);
-						Positions posicao3 = new Positions(3, 5);
-						Positions posicao4 = new Positions(4, 5);
-						Positions posicao5 = new Positions(5, 5);
-						Positions posicao6 = new Positions(6, 5);
-						
+		String fileName = "";
+		Boolean checkErro = false;
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-            p.guardeUmItem(posicao1);
-            p.guardeUmItem(posicao2);
-            p.guardeUmItem(posicao3);
-            p.guardeUmItem(posicao4);
-            p.guardeUmItem(posicao5);
-            p.guardeUmItem(posicao6);
 
-              while (!p.isVazia())
-            {
-                System.out.println(p.recupereUmItem());
-                p.removaUmItem();
-            }
+		while(fileName == "" || !checkErro){
+			System.out.println("Qual será o nome do labirinto?");
+			fileName = in.readLine();
 
-        }
-        catch (Exception erro)
-        {
-            erro.printStackTrace();
-        }
+			OpenFile OpenFileObj = new OpenFile(fileName);
+
+			checkErro = OpenFileObj.fileVerify();
+			if(!checkErro){
+				System.out.println("Ops! Parece que este jogo não está finalizado, ele possui erros!");
+			}
+			else{
+				System.out.println("Bom Jogo!");
+				String matrix[][] = OpenFileObj.convertToMatrix();	
+
+				//Instanciando classes
+				Queue queue = new Queue(matrix);
+
+				int startPosition[] = queue.findForStart();
+
+				System.out.println("Sua posição atual é: (" + startPosition[0] + "," + startPosition[1] + ")");
+				queue.printGame();
+
+				Vector<String> freeSquares = new Vector<String>();
+
+				while(!queue.winVerify(startPosition[0], startPosition[1])){
+					freeSquares = queue.returnStringPossibilities(startPosition[0], startPosition[1], true);
+
+					
+					int oldPos1 = startPosition[0]; //EIXO X [AQUI][]
+					int oldPos2 = startPosition[1]; //EIXO Y [][AQUI]
+					System.out.println();
+					printOptions(freeSquares);
+
+					System.out.println();
+
+					String charIn = in.readLine();
+					startPosition = queue.toWalk(startPosition[0], startPosition[1], charIn);
+					if(startPosition[0] == -1){
+						startPosition[0] = oldPos1;
+						startPosition[1] = oldPos2;
+					}
+				
+					queue.printGame();
+					
+				}
+
+        Stack coordenadas = queue.getStack();
+				queue.endGame();
+        coordenadas.printAllMoves();
+				
+				
+			}
+			
+		}
+			
+	}
+
+	private static void printOptions(Vector<String> x){
+		if(x != null){
+			System.out.println("Suas opções são: ");
+
+			for(int i = 0; i < x.size(); i++){
+				if(x.size() > 1){
+					if(i < x.size() - 1){
+						System.out.print(x.get(i) + ", ");
+					}else{
+						System.out.print("e " + x.get(i));
+					}
+				}
+				else{
+					System.out.println("Opa! Você pode ir apenas para: " + x.get(i));
+				}
+				
+			}
+		}
+			
 	}
 }
