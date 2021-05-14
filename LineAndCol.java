@@ -6,11 +6,13 @@ public class LineAndCol {
     int col;
 
     public LineAndCol(String x, int ver){
-      if(ver == 0){
+        if(ver == 0){
         this.line = Integer.parseInt(x);
+        // System.out.println("Entrou no lineAndCOl com a linha -> " + line);
       }else if(ver == 1){
           this.col = Integer.parseInt(x);
       }
+    
     }
 
     public LineAndCol(){

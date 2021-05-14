@@ -17,7 +17,7 @@ class Queue <X> implements Cloneable{
 				//instancia a pilha
 				coordenadas = new Stack((lineMat * colMat));
 			}
-			System.out.println("" + lineMat + ","+ colMat);
+			
 			for(int i = 0; i < lineMat; i++){
 				for(int j = 0; j  < colMat; j++){
 					this.matrix[i][j] = m[i][j];
@@ -165,10 +165,10 @@ class Queue <X> implements Cloneable{
 					ret[0] = x - 1;
 					ret[1] = y;
 				}else{
-					System.out.println("Opa! Você digitou uma opção inexistente!");
-				}
+					throw new Exception("Opa! Você digitou uma opção inexistente!");
+				} 
 			}else{
-				System.out.println("Opa! Você digitou uma opção inexistente!");
+				throw new Exception("Opa! Você digitou uma opção inexistente!");
 			}
 		}
 		
@@ -182,10 +182,10 @@ class Queue <X> implements Cloneable{
 					ret[0] = x + 1;
 					ret[1] = y;
 				}else{
-					System.out.println("Opa! Você digitou uma opção inexistente!");
+					throw new Exception("Opa! Você digitou uma opção inexistente!");
 				}
 			}else{
-				System.out.println("Opa! Você digitou uma opção inexistente!");
+				throw new Exception("Opa! Você digitou uma opção inexistente!");
 			}
 		}
 		
@@ -200,10 +200,10 @@ class Queue <X> implements Cloneable{
 					ret[0] = x;
 					ret[1] = y + 1;
 				}else{
-					System.out.println("Opa! Você digitou uma opção inexistente!");
+					throw new Exception("Opa! Você digitou uma opção inexistente!");
 				}
 			}else{
-				System.out.println("Opa! Você digitou uma opção inexistente!");
+				throw new Exception("Opa! Você digitou uma opção inexistente!");
 			}
 		}
 
@@ -221,10 +221,10 @@ class Queue <X> implements Cloneable{
 					ret[0] = x;
 					ret[1] = y - 1;
 				}else{
-					System.out.println("Opa! Você digitou uma opção inexistente!");
+					throw new Exception("Opa! Você digitou uma opção inexistente!");
 				}
 			}else{
-				System.out.println("Opa! Você digitou uma opção inexistente!");
+				throw new Exception("Opa! Você digitou uma opção inexistente!");
 			}
 		}
 		return ret;
@@ -237,7 +237,9 @@ class Queue <X> implements Cloneable{
 	
 	public void endGame(){
 		//ainda resta mostrar o numero de movimentos realizados.
+		
 		System.out.println("Parabéns, você venceu!");
+		
 	}
 
 	public Stack getStack(){

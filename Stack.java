@@ -98,21 +98,21 @@ class Stack <Coordenadas> implements Cloneable{
         return false;
     }
 
-    public void printAllMoves() throws Exception{
-        System.out.println("No total foram feitos " + (this.ultimo+1) + " movimentos");
+    public String printAllMoves() throws Exception{
+        String ret = "No total foram feitos " + (this.ultimo+1) + " movimentos\n";
         finalPos = new Positions[this.ultimo];
         int test = this.ultimo;
         
         for(int f = 0; !isVazia(); f++)
         {
-            System.out.println("Movimento " + (f + 1) + ": "+ posicao[f].toString() + " ");
+            ret += "Movimento " + (f + 1) + ": "+ posicao[f].toString() + " \n";
            
             removaUmItem(false);
         }
        
         /* if (this.ultimo!=-1)
             ret += ", sendo o ultimo "+this.posicao[this.ultimo]; */
-            
+            return ret;
     }
 
 
